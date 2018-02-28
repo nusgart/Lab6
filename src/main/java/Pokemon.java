@@ -43,6 +43,14 @@ public class Pokemon {
      * The Pokemon type we are dealing with.
      */
     public PokemonType pokeType;
+    /**
+     * The name of the specialty attack.
+     */
+    public String specialtyAttack = "";
+    /**
+     * The probability that we execute the specialty attack.
+     */
+    public double specialtyProbability = 0;
 
     /**
      * Number of hit points this Pokemon has.
@@ -218,6 +226,13 @@ public class Pokemon {
             System.out.println("The attack missed!");
         }
         System.out.println(" ");
+        // Specialty Attack
+        double d = Math.random();
+        if (opponent.pokeType != this.pokeType && d <= specialtyProbability){
+            System.out.printf("%s executes specialty attack... %s!!!\n%s has been defeated!",
+                    getName(), specialtyAttack, opponent.getName());
+            opponent.setHitPoints(0);
+        }
         return (opponent.hitPoints < 1);
     }
 
