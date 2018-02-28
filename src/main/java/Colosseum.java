@@ -43,7 +43,7 @@ public class Colosseum {
      * The process will still be the same for getting the information from the user,
      * but now we are adding the feature where the user can pick what TYPE of
      * Pokemon we are going to battle.
-     *
+     * <p>
      * How we will build our Pokemon to battle.
      * <p>
      * Have the user select from a list of 3 different types of Pokemon.
@@ -99,13 +99,13 @@ public class Colosseum {
      * Sorry. The defense level must be between 1 and 23: 23
      *
      * @return tempPokemon - the Pokemon we built and are going to set our fighting Pokemon to <br>
-     *         (Look, we can return objects too!)
-     *         <p>
+     * (Look, we can return objects too!)
+     * <p>
      */
     public static Pokemon buildPokemon() {
         Pokemon tempPokemon = null;
         String name = null;
-        while (name == null){
+        while (name == null) {
             System.out.print("Please name your Pokemon: ");
             name = myScan.nextLine().trim();
             if (name.isEmpty()) {
@@ -114,35 +114,43 @@ public class Colosseum {
         }
         final int maxType = 3;
         int type = -1;
-        while (type < 0){
+        while (type < 0) {
             try {
-                System.out.print("Select from the following Pokemon types: 1- Electric 2 - Fire 3 - Water? ");
+                System.out.print("Select from the following Pokemon types"
+                        + ": 1- Electric 2 - Fire 3 - Water? ");
                 type = myScan.nextInt();
                 if (type < 1 || type > maxType) {
-                    System.out.println("Sorry.  you must select either 1, 2, or 3: "  + type);
+                    System.out.println("Sorry.  you must select either 1, 2, or 3: " + type);
                     type = -1;
                 }
-            } catch (Throwable t){
+            } catch (Throwable t) {
                 myScan.skip(".*");
                 System.out.println("Enter an INTEGER between 1 and 3!");
             }
         }
-        switch (type){
-            case 1: tempPokemon = new ElectricPokemon(); break;
-            case 2: tempPokemon = new FirePokemon(); break;
-            case 3: tempPokemon = new WaterPokemon(); break;
+        switch (type) {
+            case Pokemon.ELECTRIC:
+                tempPokemon = new ElectricPokemon();
+                break;
+            case Pokemon.FIRE:
+                tempPokemon = new FirePokemon();
+                break;
+            case Pokemon.WATER:
+                tempPokemon = new WaterPokemon();
+                break;
+            default: throw new IllegalStateException("Invalid Pokemon type (should never happen)!");
         }
         final int max = 50;
         int hitpoints = -1;
-        while (hitpoints < 0){
+        while (hitpoints < 0) {
             try {
                 System.out.print("How many Hit points will it have? ");
                 hitpoints = myScan.nextInt();
                 if (hitpoints < 1 || hitpoints > max) {
-                    System.out.println("Sorry.  Hit points must be between 1 and 50: "  + hitpoints);
+                    System.out.println("Sorry.  Hit points must be between 1 and 50: " + hitpoints);
                     hitpoints = -1;
                 }
-            } catch (Throwable t){
+            } catch (Throwable t) {
                 myScan.skip(".*");
                 System.out.println("Enter an INTEGER between 1 and 50!");
             }
@@ -150,29 +158,30 @@ public class Colosseum {
         System.out.println("Split 50 points between attack and defense level.");
         final int total = 50;
         int attack = -1;
-        while (attack < 0){
+        while (attack < 0) {
             try {
                 System.out.print("Enter attack level: ");
                 attack = myScan.nextInt();
                 if (attack < 1 || attack >= max) {
-                    System.out.println("Sorry.  Attack must be between 1 and 49: "  + attack);
+                    System.out.println("Sorry.  Attack must be between 1 and 49: " + attack);
                     attack = -1;
                 }
-            } catch (Throwable t){
+            } catch (Throwable t) {
                 myScan.skip(".*");
                 System.out.println("Enter an INTEGER between 1 and 49!");
             }
         }
         int defense = -1;
-        while (defense < 0){
+        while (defense < 0) {
             try {
                 System.out.print("Enter defense level: ");
                 defense = myScan.nextInt();
                 if (defense < 1 || defense > max - attack) {
-                    System.out.printf("Sorry.  Defense must be between 1 and %d: %d!\n", max - attack, defense);
+                    System.out.printf("Sorry.  Defense must be between 1 and %d: %d!\n",
+                            max - attack, defense);
                     defense = -1;
                 }
-            } catch (Throwable t){
+            } catch (Throwable t) {
                 myScan.skip(".*");
                 System.out.printf("Enter an INTEGER between 1 and %d!\n", max - attack);
             }
@@ -267,18 +276,20 @@ public class Colosseum {
             secondPokemon = tempPokemon;
         }
     }
+
     /**
      * Just a simple menu printer for the types of Pokemon
      * so we don't clutter other functions printing it over and over. <p>
      * You do not need to modify this function.
      */
     public static void printTypeMenu() {
-       System.out.println("Select from the following Pokemon types: ");
-       System.out.println("1 - Electric Pokemon ");
-       System.out.println("2 - Fire Pokemon");
-       System.out.println("3 - Water Pokemon");
+        System.out.println("Select from the following Pokemon types: ");
+        System.out.println("1 - Electric Pokemon ");
+        System.out.println("2 - Fire Pokemon");
+        System.out.println("3 - Water Pokemon");
 
     }
+
     /**
      * Conducts the Pokemon battle.
      * <p>

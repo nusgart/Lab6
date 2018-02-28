@@ -34,6 +34,11 @@ public class Pokemon {
          */
         WATER
     }
+
+    /**
+     * Undocumented.
+     */
+    public static final int ELECTRIC = 1, FIRE = 2, WATER = 3;
     /**
      * The Pokemon type we are dealing with.
      */
